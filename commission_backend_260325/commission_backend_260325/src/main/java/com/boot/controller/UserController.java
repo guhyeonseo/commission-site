@@ -9,7 +9,9 @@ import com.boot.entity.UserEntity;
 import com.boot.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -25,14 +27,17 @@ public class UserController {
                            @RequestParam("email") String email) {
 
         userService.register(username, nickname, password, email);
+        log.info("회원가입 성공");
+        
         return "회원가입 성공";
     }
 
     // 로그인
     @PostMapping("/login")
-    public UserEntity login(@RequestParam String username,
-                            @RequestParam String password) {
+    public UserEntity login(@RequestParam("username") String username,
+                            @RequestParam("password") String password) {
 
+    	log.info("로그인 성공");
         return userService.login(username, password);
     }
 }
